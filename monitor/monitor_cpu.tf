@@ -1,6 +1,8 @@
 # DataDog Monitor
 
-resource "datadog_monitor" "prod_web_cpu" {
+resource "datadog_monitor" "cpu" {
+  // no create
+  count = 0
   // Title
   name = "[terraform] [${var.project}] [prod-web] [system.cpu.system]"
 
@@ -8,7 +10,7 @@ resource "datadog_monitor" "prod_web_cpu" {
   type = "query alert"
 
   // Define the metric
-  query = "avg(last_5m):avg:system.cpu.system{role-prod-web,project:${var.project}} by {host} > 8"
+  query = "avg(last_5m):avg:system.cpu.system{project:${var.project}} by {host} > 8"
 
   // Set alert conditions
   thresholds {
