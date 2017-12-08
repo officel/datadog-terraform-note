@@ -36,5 +36,7 @@ terraform plan
 terraform apply -auto-approve
 
 # https://app.datadoghq.com/dash/list
+
+terraform destroy -force
 ```
 
