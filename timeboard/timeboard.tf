@@ -1,4 +1,4 @@
-resource "datadog_timeboard" "project-tb" {
+resource "datadog_timeboard" "system" {
   title       = "${var.title}"
   description = "${var.description}"
   read_only   = "${var.read_only}"
@@ -22,7 +22,7 @@ resource "datadog_timeboard" "project-tb" {
 
   # LA 3 Lines
   graph {
-    title = "system.load"
+    title = "System.load"
     viz   = "timeseries"
 
     request {
@@ -38,6 +38,20 @@ resource "datadog_timeboard" "project-tb" {
     request {
       q    = "avg:system.load.15{$$${var.template_name}}"
       type = "line"
+    }
+  }
+
+  # CPU Usage
+  graph {
+    title = "CPU usage (%)"
+    viz   = "timeseries"
+    autoscale = true
+    request {
+      q    = "avg:system.cpu.idle{$$${var.template_name}}, avg:system.cpu.system{$$${var.template_name}}, avg:system.cpu.iowait{$$${var.template_name}}, avg:system.cpu.user{$$${var.template_name}}, avg:system.cpu.stolen{$$${var.template_name}}, avg:system.cpu.guest{$$${var.template_name}}"
+      type = "area"
+      style {
+        palette = "classic"
+      }
     }
   }
 
