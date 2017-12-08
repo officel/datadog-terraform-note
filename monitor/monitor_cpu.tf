@@ -2,9 +2,9 @@
 
 resource "datadog_monitor" "cpu" {
   // no create
-  count = 0
+  count = 1
   // Title
-  name = "[terraform] [${var.project}] [prod-web] [system.cpu.system]"
+  name = "[terraform] [${var.project}] [system.cpu.system]"
 
   // Choose the detection method
   type = "query alert"
