@@ -9,6 +9,17 @@ resource "datadog_timeboard" "project-tb" {
     default = "${var.template_default}"
   }
 
+  # Uptime Value
+  graph {
+    title = "Uptime"
+    viz   = "query_value"
+    autoscale = true
+    "request" {
+      q = "avg:system.uptime{$$${var.template_name}}"
+      aggregator = "max"
+    }
+  }
+
   # LA 3 Lines
   graph {
     title = "system.load"
@@ -29,21 +40,6 @@ resource "datadog_timeboard" "project-tb" {
       type = "line"
     }
   }
-
-
-  # Uptime Value
-  graph {
-    title = "Uptime"
-    viz   = "query_value"
-    autoscale = true
-    "request" {
-      q = "avg:system.uptime{$$${var.template_name}}"
-      aggregator = "max"
-    }
-  }
-
-
-
 
 }
 
